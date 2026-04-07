@@ -1,0 +1,26 @@
+COME INSTALLARE IL PROGETTO
+1. Installa Node.js LTS (consigliato: v20 o v22).
+2. Apri un terminale nella cartella del progetto.
+3. Esegui: npm install
+4. Esegui: npm start
+5. Apri il browser su http://localhost:3000
+
+ACCOUNT DEMO
+ADMIN
+email: admin@melodyhub.it
+password: Admin123!
+
+ARTIST
+email: artist@melodyhub.it
+password: Artist123!
+
+LISTENER
+email: listener@melodyhub.it
+password: Listener123!
+
+NOTE
+- Il database SQLite si crea automaticamente al primo avvio.
+- Se la porta 3000 è occupata, puoi avviare con:
+  set PORT=3001 && npm start   (Windows CMD)
+  $env:PORT=3001; npm start    (PowerShell)
+  PORT=3001 npm start          (Linux / WSL)

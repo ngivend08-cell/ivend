@@ -1,0 +1,59 @@
+<%- include('partials/head') %>
+<%- include('partials/header') %>
+<%- include('partials/flash') %>
+<main id="app-main" class="container" style="padding: 2rem 0 3rem;">
+  <div class="catalog-grid">
+    <section class="catalog-list">
+      <h1 class="section-title" style="font-size: 2.3rem;">Catalogo musicale</h1>
+      <p class="muted">Ricerca pubblica disponibile anche senza account.</p>
+
+      <% if (!tracks.length) { %>
+        <div class="empty">Nessun brano trovato con i filtri selezionati.</div>
+      <% } %>
+
+      <div class="card-grid">
+        <% tracks.forEach((track) => { %>
+          <article class="card track-card">
+            <div>
+              <div class="track-meta">
+                <span class="meta-pill"><%= track.genre %></span>
+                <span class="meta-pill"><%= track.duration_seconds %> sec</span>
+              </div>
+              <h2><%= track.title %></h2>
+              <p class="muted">di <%= track.artist_name %></p>
+            </div>
+            <p><%= track.description || 'Nessuna descrizione disponibile.' %></p>
+            <div class="track-meta">
+              <span class="meta-pill">Commenti: <%= track.comments_count %></span>
+              <span class="meta-pill">Preferiti: <%= track.favorites_count %></span>
+            </div>
+            <a class="button-outline" href="/tracks/<%= track.id %>">Dettaglio</a>
+          </article>
+        <% }) %>
+      </div>
+    </section>
+
+    <aside class="catalog-filters panel">
+      <h2>Filtri di ricerca</h2>
+      <form method="get" action="/catalog">
+        <label>
+          Cerca per titolo, artista o descrizione
+          <input type="text" name="query" value="<%= filters.query %>" placeholder="Es. lo-fi, Lina, Jazz" />
+        </label>
+        <label>
+          Genere
+          <select name="genre">
+            <option value="">Tutti i generi</option>
+            <% genres.forEach((genreItem) => { %>
+              <option value="<%= genreItem.genre %>" <%= filters.genre === genreItem.genre ? 'selected' : '' %>>
+                <%= genreItem.genre %>
+              </option>
+            <% }) %>
+          </select>
+        </label>
+        <button class="button" type="submit">Cerca</button>
+      </form>
+    </aside>
+  </div>
+</main>
+<%- include('partials/footer') %>

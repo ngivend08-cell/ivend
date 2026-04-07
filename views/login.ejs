@@ -1,0 +1,32 @@
+<%- include('partials/head') %>
+<%- include('partials/header') %>
+<%- include('partials/flash') %>
+<main id="app-main" class="container" style="padding: 2rem 0 3rem;">
+  <div class="auth-grid">
+    <section class="auth-main form-card">
+      <h1>Login</h1>
+      <p class="muted">Accedi con una delle utenze demo oppure con un account creato da te.</p>
+      <form action="/login" method="post">
+        <label>
+          Email
+          <input type="email" name="email" required />
+        </label>
+        <label>
+          Password
+          <input type="password" name="password" required />
+        </label>
+        <button class="button" type="submit">Accedi</button>
+      </form>
+    </section>
+
+    <aside class="auth-side panel">
+      <h2>Account demo</h2>
+      <ul>
+        <li>Admin → admin@melodyhub.it / Admin123!</li>
+        <li>Artist → artist@melodyhub.it / Artist123!</li>
+        <li>Listener → listener@melodyhub.it / Listener123!</li>
+      </ul>
+    </aside>
+  </div>
+</main>
+<%- include('partials/footer') %>

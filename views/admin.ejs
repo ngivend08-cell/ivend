@@ -1,0 +1,108 @@
+<%- include('partials/head') %>
+<%- include('partials/header') %>
+<%- include('partials/flash') %>
+<main id="app-main" class="container" style="padding: 2rem 0 3rem;">
+  <section class="panel">
+    <h1>Area amministratore</h1>
+    <p class="muted">L'amministratore gestisce utenti, commenti e monitora i contenuti del catalogo.</p>
+  </section>
+
+  <div class="admin-grid" style="margin-top: 1rem;">
+    <section class="table-card">
+      <h2>Utenti</h2>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Nome</th>
+              <th>Email</th>
+              <th>Ruolo</th>
+              <th>Brani</th>
+              <th>Playlist</th>
+              <th>Azione</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% users.forEach((user) => { %>
+              <tr>
+                <td><%= user.name %></td>
+                <td><%= user.email %></td>
+                <td><%= user.role %></td>
+                <td><%= user.total_tracks %></td>
+                <td><%= user.total_playlists %></td>
+                <td>
+                  <% if (currentUser.id !== user.id) { %>
+                    <form action="/admin/users/<%= user.id %>/delete" method="post">
+                      <button class="button-danger" type="submit">Elimina</button>
+                    </form>
+                  <% } else { %>
+                    <span class="muted">Account attuale</span>
+                  <% } %>
+                </td>
+              </tr>
+            <% }) %>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="table-card">
+      <h2>Commenti</h2>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Autore</th>
+              <th>Brano</th>
+              <th>Contenuto</th>
+              <th>Azione</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% comments.forEach((comment) => { %>
+              <tr>
+                <td><%= comment.author_name %></td>
+                <td><%= comment.track_title %></td>
+                <td><%= comment.content %></td>
+                <td>
+                  <form action="/admin/comments/<%= comment.id %>/delete" method="post">
+                    <button class="button-danger" type="submit">Elimina</button>
+                  </form>
+                </td>
+              </tr>
+            <% }) %>
+          </tbody>
+        </table>
+      </div>
+    </section>
+  </div>
+
+  <section class="table-card" style="margin-top: 1rem;">
+    <h2>Tutti i brani</h2>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Titolo</th>
+            <th>Artista</th>
+            <th>Genere</th>
+            <th>Preferiti</th>
+            <th>Commenti</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% tracks.forEach((track) => { %>
+            <tr>
+              <td><a href="/tracks/<%= track.id %>"><%= track.title %></a></td>
+              <td><%= track.artist_name %></td>
+              <td><%= track.genre %></td>
+              <td><%= track.favorites_count %></td>
+              <td><%= track.comments_count %></td>
+            </tr>
+          <% }) %>
+        </tbody>
+      </table>
+    </div>
+  </section>
+</main>
+<%- include('partials/footer') %>

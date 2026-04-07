@@ -1,0 +1,30 @@
+{
+  "name": "melodyhub-exam-project",
+  "version": "1.0.0",
+  "description": "Piattaforma musica per esame di programmazione web con Node.js, Express, SQLite, EJS, Passport e page.js",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js",
+    "dev": "node --watch app.js"
+  },
+  "keywords": [
+    "node",
+    "express",
+    "sqlite",
+    "ejs",
+    "passport",
+    "pagejs"
+  ],
+  "author": "OpenAI - progetto base personalizzabile",
+  "license": "MIT",
+  "dependencies": {
+    "20": "^1.0.0",
+    "better-sqlite3": "^11.9.1",
+    "ejs": "^3.1.10",
+    "express": "^4.21.2",
+    "express-session": "^1.19.0",
+    "page": "^1.3.7",
+    "passport": "^0.7.0",
+    "passport-local": "^1.0.0"
+  }
+}

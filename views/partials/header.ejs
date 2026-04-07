@@ -1,0 +1,36 @@
+<header class="site-header">
+  <div class="container header-row">
+    <a href="/" class="brand" data-spa-link>Melody<span>Hub</span></a>
+
+    <nav aria-label="Navigazione principale">
+      <ul class="nav-list">
+        <li><a class="nav-link <%= path === '/' ? 'active' : '' %>" href="/" data-spa-link>Home</a></li>
+        <li><a class="nav-link <%= path.startsWith('/catalog') ? 'active' : '' %>" href="/catalog" data-spa-link>Catalogo</a></li>
+        <% if (currentUser) { %>
+          <li><a class="nav-link <%= path.startsWith('/dashboard') ? 'active' : '' %>" href="/dashboard" data-spa-link>Dashboard</a></li>
+          <% if (currentUser.role === 'artist' || currentUser.role === 'admin') { %>
+            <li><a class="nav-link <%= path === '/tracks/new' ? 'active' : '' %>" href="/tracks/new" data-spa-link>Pubblica</a></li>
+          <% } %>
+          <li><a class="nav-link <%= path === '/playlists/new' ? 'active' : '' %>" href="/playlists/new" data-spa-link>Playlist</a></li>
+          <% if (currentUser.role === 'admin') { %>
+            <li><a class="nav-link <%= path === '/admin' ? 'active' : '' %>" href="/admin" data-spa-link>Admin</a></li>
+          <% } %>
+        <% } %>
+      </ul>
+    </nav>
+
+    <ul class="utility-list">
+      <% if (currentUser) { %>
+        <li class="badge"><strong><%= currentUser.name %></strong> · <%= currentUser.role %></li>
+        <li>
+          <form action="/logout" method="post">
+            <button class="button-outline" type="submit">Logout</button>
+          </form>
+        </li>
+      <% } else { %>
+        <li><a class="button-outline" href="/login" data-spa-link>Login</a></li>
+        <li><a class="button" href="/register" data-spa-link>Registrati</a></li>
+      <% } %>
+    </ul>
+  </div>
+</header>

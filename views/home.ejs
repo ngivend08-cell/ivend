@@ -1,0 +1,73 @@
+<%- include('partials/head') %>
+<%- include('partials/header') %>
+<%- include('partials/flash') %>
+<main id="app-main">
+  <section class="hero">
+    <div class="container hero-grid">
+      <article class="hero-card">
+        <p class="badge">Piattaforma musica · progetto esame completo</p>
+        <h1>Condividi brani, crea playlist e cerca musica in un'unica applicazione web.</h1>
+        <p class="muted">
+          MelodyHub è una piattaforma musicale con ruoli multipli: i visitatori possono esplorare il catalogo,
+          gli artisti pubblicano contenuti, gli utenti registrati salvano preferiti e playlist, mentre l'admin gestisce tutto.
+        </p>
+        <div class="hero-actions">
+          <a href="/catalog" class="button" data-spa-link>Esplora il catalogo</a>
+          <% if (!currentUser) { %>
+            <a href="/register" class="button-outline" data-spa-link>Crea un account</a>
+          <% } else { %>
+            <a href="/dashboard" class="button-outline" data-spa-link>Vai alla dashboard</a>
+          <% } %>
+        </div>
+      </article>
+      <aside class="panel">
+        <h2>Funzionalità obbligatorie coperte</h2>
+        <ul>
+          <li>Registrazione e login con Passport</li>
+          <li>Ruoli: admin, artist, listener</li>
+          <li>Ricerca pubblica per titolo, artista, genere</li>
+          <li>Database SQLite con più tabelle relazionate</li>
+          <li>CRUD: brani, commenti, playlist, preferiti</li>
+          <li>Navigazione client-side con page.js</li>
+        </ul>
+      </aside>
+    </div>
+  </section>
+
+  <section class="container">
+    <div class="stats-grid">
+      <% topGenres.forEach((genre) => { %>
+        <article class="card">
+          <strong><%= genre.genre %></strong>
+          <p class="muted">Brani nel catalogo: <%= genre.total %></p>
+        </article>
+      <% }) %>
+    </div>
+  </section>
+
+  <section class="container" style="padding: 3rem 0;">
+    <div class="inline-actions" style="justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+      <h2 class="section-title" style="font-size: 2rem; margin: 0;">Ultimi brani pubblicati</h2>
+      <a href="/catalog" class="button-outline" data-spa-link>Vedi tutto</a>
+    </div>
+
+    <div class="card-grid">
+      <% latestTracks.forEach((track) => { %>
+        <article class="card track-card">
+          <div>
+            <p class="badge"><%= track.genre %></p>
+            <h3><%= track.title %></h3>
+            <p class="muted">Artista: <%= track.artist_name %></p>
+          </div>
+          <p><%= track.description || 'Nessuna descrizione disponibile.' %></p>
+          <div class="track-meta">
+            <span class="meta-pill"><%= track.duration_seconds %> sec</span>
+            <span class="meta-pill">Pubblicato: <%= track.created_at %></span>
+          </div>
+          <a href="/tracks/<%= track.id %>" class="button-outline">Apri dettaglio</a>
+        </article>
+      <% }) %>
+    </div>
+  </section>
+</main>
+<%- include('partials/footer') %>

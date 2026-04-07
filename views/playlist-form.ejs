@@ -1,0 +1,27 @@
+<%- include('partials/head') %>
+<%- include('partials/header') %>
+<%- include('partials/flash') %>
+<main id="app-main" class="container" style="padding: 2rem 0 3rem;">
+  <div class="form-grid">
+    <section class="form-main form-card">
+      <h1>Crea una nuova playlist</h1>
+      <form action="/playlists" method="post">
+        <label>
+          Nome playlist
+          <input type="text" name="name" required />
+        </label>
+        <label>
+          Descrizione
+          <textarea name="description"></textarea>
+        </label>
+        <button class="button" type="submit">Salva playlist</button>
+      </form>
+    </section>
+
+    <aside class="form-side panel">
+      <h2>Uso della base dati</h2>
+      <p class="muted">Le playlist sono salvate in SQLite e collegate ai brani tramite una tabella relazionale <code>playlist_tracks</code>.</p>
+    </aside>
+  </div>
+</main>
+<%- include('partials/footer') %>

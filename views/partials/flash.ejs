@@ -1,0 +1,8 @@
+<% if (flash) { %>
+  <div class="container" style="margin-top: 1rem;">
+    <section class="flash <%= flash.type %>">
+      <strong><%= flash.type === 'success' ? 'Operazione riuscita:' : 'Attenzione:' %></strong>
+      <span><%= flash.message %></span>
+    </section>
+  </div>
+<% } %>

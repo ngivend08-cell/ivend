@@ -1,0 +1,39 @@
+<%- include('partials/head') %>
+<%- include('partials/header') %>
+<%- include('partials/flash') %>
+<main id="app-main" class="container" style="padding: 2rem 0 3rem;">
+  <div class="form-grid">
+    <section class="form-main form-card">
+      <h1>Pubblica un nuovo brano</h1>
+      <form action="/tracks" method="post">
+        <label>
+          Titolo
+          <input type="text" name="title" required />
+        </label>
+        <label>
+          Genere
+          <input type="text" name="genre" required />
+        </label>
+        <label>
+          Durata in secondi
+          <input type="number" name="duration_seconds" min="1" required />
+        </label>
+        <label>
+          Descrizione
+          <textarea name="description"></textarea>
+        </label>
+        <label>
+          URL YouTube (facoltativo)
+          <input type="url" name="youtube_url" />
+        </label>
+        <button class="button" type="submit">Pubblica</button>
+      </form>
+    </section>
+
+    <aside class="form-side panel">
+      <h2>Nota per l'esame</h2>
+      <p class="muted">Questo form dimostra un vero flusso CRUD verso SQLite. I dati non sono statici: vengono salvati sul database e riutilizzati nelle ricerche e nel dettaglio del brano.</p>
+    </aside>
+  </div>
+</main>
+<%- include('partials/footer') %>

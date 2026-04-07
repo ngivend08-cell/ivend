@@ -1,0 +1,11 @@
+<%- include('partials/head') %>
+<%- include('partials/header') %>
+<main id="app-main" class="container" style="padding: 3rem 0;">
+  <section class="panel">
+    <h1>Errore interno</h1>
+    <p class="muted">Si è verificato un errore durante l'elaborazione della richiesta.</p>
+    <pre><%= errorMessage %></pre>
+    <a class="button" href="/" data-spa-link>Torna alla home</a>
+  </section>
+</main>
+<%- include('partials/footer') %>

@@ -1,0 +1,43 @@
+<%- include('partials/head') %>
+<%- include('partials/header') %>
+<%- include('partials/flash') %>
+<main id="app-main" class="container" style="padding: 2rem 0 3rem;">
+  <div class="auth-grid">
+    <section class="auth-main form-card">
+      <h1>Registrazione</h1>
+      <p class="muted">Crea un nuovo account. Il ruolo admin è riservato ai dati demo del progetto.</p>
+      <form action="/register" method="post">
+        <label>
+          Nome completo
+          <input type="text" name="name" required />
+        </label>
+        <label>
+          Email
+          <input type="email" name="email" required />
+        </label>
+        <label>
+          Password
+          <input type="password" name="password" minlength="6" required />
+        </label>
+        <label>
+          Ruolo
+          <select name="role">
+            <option value="listener">Listener</option>
+            <option value="artist">Artist</option>
+          </select>
+        </label>
+        <button class="button" type="submit">Crea account</button>
+      </form>
+    </section>
+
+    <aside class="auth-side panel">
+      <h2>Perché due ruoli?</h2>
+      <p class="muted">Il professore richiede più tipi di utente. In questo progetto:</p>
+      <ul>
+        <li>Listener: salva playlist e preferiti, commenta.</li>
+        <li>Artist: fa tutto quello che fa il listener e può pubblicare brani.</li>
+      </ul>
+    </aside>
+  </div>
+</main>
+<%- include('partials/footer') %>

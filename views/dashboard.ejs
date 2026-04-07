@@ -1,0 +1,85 @@
+<%- include('partials/head') %>
+<%- include('partials/header') %>
+<%- include('partials/flash') %>
+<main id="app-main" class="container" style="padding: 2rem 0 3rem;">
+  <div class="dashboard-grid">
+    <section class="dashboard-main">
+      <article class="panel">
+        <h1>Dashboard di <%= currentUser.name %></h1>
+        <p class="muted">Da qui puoi vedere i tuoi preferiti, le tue playlist e i tuoi contenuti.</p>
+        <div class="inline-actions">
+          <a href="/playlists/new" class="button" data-spa-link>Nuova playlist</a>
+          <% if (currentUser.role === 'artist' || currentUser.role === 'admin') { %>
+            <a href="/tracks/new" class="button-outline" data-spa-link>Pubblica un brano</a>
+          <% } %>
+        </div>
+      </article>
+
+      <section class="panel" style="margin-top: 1rem;">
+        <h2>I tuoi preferiti</h2>
+        <% if (!favoriteTracks.length) { %>
+          <div class="empty">Non hai ancora aggiunto brani ai preferiti.</div>
+        <% } %>
+        <% favoriteTracks.forEach((track) => { %>
+          <article class="card" style="margin-bottom: 1rem;">
+            <h3><%= track.title %></h3>
+            <p class="muted"><%= track.artist_name %> · <%= track.genre %></p>
+            <a href="/tracks/<%= track.id %>" class="button-outline">Apri</a>
+          </article>
+        <% }) %>
+      </section>
+
+      <% if (currentUser.role === 'artist' || currentUser.role === 'admin') { %>
+        <section class="panel" style="margin-top: 1rem;">
+          <h2>I tuoi brani</h2>
+          <% if (!ownTracks.length) { %>
+            <div class="empty">Non hai ancora pubblicato nessun brano.</div>
+          <% } %>
+          <% ownTracks.forEach((track) => { %>
+            <article class="card" style="margin-bottom: 1rem;">
+              <h3><%= track.title %></h3>
+              <p class="muted"><%= track.genre %> · <%= track.duration_seconds %> secondi</p>
+              <div class="inline-actions">
+                <a href="/tracks/<%= track.id %>" class="button-outline">Apri</a>
+                <form action="/tracks/<%= track.id %>/delete" method="post">
+                  <button class="button-danger" type="submit">Elimina</button>
+                </form>
+              </div>
+            </article>
+          <% }) %>
+        </section>
+      <% } %>
+    </section>
+
+    <aside class="dashboard-side panel">
+      <h2>Le tue playlist</h2>
+      <% if (!playlists.length) { %>
+        <div class="empty">Non hai ancora creato playlist.</div>
+      <% } %>
+      <% playlists.forEach((playlist) => { %>
+        <article class="card" style="margin-bottom: 1rem;">
+          <h3><%= playlist.name %></h3>
+          <p class="muted"><%= playlist.description || 'Nessuna descrizione.' %></p>
+          <p class="small">Brani presenti: <%= playlist.total_tracks %></p>
+
+          <% if (!playlist.tracks.length) { %>
+            <p class="small muted">Playlist vuota.</p>
+          <% } else { %>
+            <ul>
+              <% playlist.tracks.forEach((track) => { %>
+                <li>
+                  <%= track.title %> - <%= track.artist_name %>
+                  <form action="/playlists/<%= playlist.id %>/remove" method="post" style="display:inline;">
+                    <input type="hidden" name="track_id" value="<%= track.id %>" />
+                    <button class="button-outline" type="submit">Rimuovi</button>
+                  </form>
+                </li>
+              <% }) %>
+            </ul>
+          <% } %>
+        </article>
+      <% }) %>
+    </aside>
+  </div>
+</main>
+<%- include('partials/footer') %>

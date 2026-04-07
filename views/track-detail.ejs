@@ -1,0 +1,70 @@
+<%- include('partials/head') %>
+<%- include('partials/header') %>
+<%- include('partials/flash') %>
+<main id="app-main" class="container" style="padding: 2rem 0 3rem;">
+  <div class="detail-grid">
+    <section class="detail-content panel">
+      <p class="badge"><%= track.genre %></p>
+      <h1><%= track.title %></h1>
+      <p class="muted">Artista: <%= track.artist_name %> · Durata: <%= track.duration_seconds %> secondi</p>
+      <p><%= track.description || 'Nessuna descrizione disponibile.' %></p>
+
+      <% if (track.youtube_url) { %>
+        <p><a class="button-outline" href="<%= track.youtube_url %>" target="_blank" rel="noreferrer">Apri link YouTube</a></p>
+      <% } %>
+
+      <% if (currentUser) { %>
+        <div class="inline-actions">
+          <form action="/tracks/<%= track.id %>/favorite" method="post">
+            <button class="button" type="submit"><%= alreadyFavorite ? 'Rimuovi dai preferiti' : 'Aggiungi ai preferiti' %></button>
+          </form>
+        </div>
+      <% } %>
+
+      <section style="margin-top: 2rem;">
+        <h2>Commenti</h2>
+        <% if (currentUser) { %>
+          <form action="/tracks/<%= track.id %>/comments" method="post">
+            <label>
+              Lascia un commento
+              <textarea name="content" required></textarea>
+            </label>
+            <button class="button" type="submit">Pubblica commento</button>
+          </form>
+        <% } else { %>
+          <p class="muted">Per commentare devi fare login.</p>
+        <% } %>
+
+        <div style="margin-top: 1.5rem;">
+          <% if (!comments.length) { %>
+            <div class="empty">Nessun commento disponibile.</div>
+          <% } %>
+          <% comments.forEach((comment) => { %>
+            <article class="comment">
+              <p><strong><%= comment.author_name %></strong> · <span class="muted"><%= comment.author_role %></span></p>
+              <p><%= comment.content %></p>
+              <p class="small muted"><%= comment.created_at %></p>
+            </article>
+          <% }) %>
+        </div>
+      </section>
+    </section>
+
+    <aside class="detail-aside panel">
+      <h2>Aggiungi a playlist</h2>
+      <% if (!currentUser) { %>
+        <p class="muted">Effettua il login per salvare il brano in una playlist.</p>
+      <% } else if (!playlists.length) { %>
+        <p class="muted">Non hai playlist disponibili. Creane una nella dashboard.</p>
+      <% } else { %>
+        <% playlists.forEach((playlist) => { %>
+          <form action="/playlists/<%= playlist.id %>/add" method="post" style="margin-bottom: 0.8rem;">
+            <input type="hidden" name="track_id" value="<%= track.id %>" />
+            <button class="button-outline" type="submit"><%= playlist.name %></button>
+          </form>
+        <% }) %>
+      <% } %>
+    </aside>
+  </div>
+</main>
+<%- include('partials/footer') %>

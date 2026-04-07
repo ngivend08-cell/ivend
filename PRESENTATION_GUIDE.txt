@@ -1,0 +1,43 @@
+TRACCIA RAPIDA PER LA PRESENTAZIONE ORALE
+
+1. IDEA DEL PROGETTO
+MelodyHub è una piattaforma musicale dove i visitatori esplorano il catalogo, gli artisti pubblicano brani,
+gli utenti registrati creano playlist e preferiti e l'admin gestisce utenti e moderazione.
+
+2. TECNOLOGIE SCELTE
+- Frontend: HTML5, CSS3, JavaScript
+- Backend: Node.js + Express
+- Database: SQLite
+- Template engine: EJS
+- Routing client-side: page.js
+- Autenticazione: Passport local
+
+3. STRUTTURA DATABASE
+- users: utenti e ruoli
+- tracks: brani pubblicati
+- comments: commenti dei brani
+- playlists: playlist degli utenti
+- playlist_tracks: relazione molti-a-molti tra playlist e brani
+- favorites: preferiti degli utenti
+
+4. FUNZIONALITÀ OBBLIGATORIE MOSTRATE
+- registrazione
+- login / logout
+- più ruoli
+- funzioni pubbliche senza login
+- funzioni private dopo login
+- ricerca pubblica
+- uso reale del database oltre al login
+
+5. PROGRAMMAZIONE MODERNA
+- classi ES6 nei service
+- Promise e async/await
+- middleware Express per auth e ruoli
+- hashing password con crypto.scrypt
+
+6. DIMOSTRAZIONE CONSIGLIATA IN VIDEO
+- apri home
+- mostra catalogo e ricerca senza login
+- entra con account listener e aggiungi preferito/commento/playlist
+- entra con account artist e pubblica un brano
+- entra con account admin e mostra moderazione
